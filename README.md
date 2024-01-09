@@ -1,38 +1,50 @@
-# M5 UnitV2 Framework
+# UnitV2Framework
 
-## Toolchain
+## Install
 
-gcc-arm-10.2-2020.11-x86_64-arm-none-linux-gnueabihf.tar.xz
+### Toolchain
 
-[@download page](https://developer.arm.com/tools-and-software/open-source-software/developer-tools/gnu-toolchain/gnu-a/downloads)
+Download and extract `arm-none-linux-gnueabihf` toolchain:
 
-[@download link](https://developer.arm.com/-/media/Files/downloads/gnu-a/10.2-2020.11/binrel/gcc-arm-10.2-2020.11-x86_64-arm-none-linux-gnueabihf.tar.xz?revision=d0b90559-3960-4e4b-9297-7ddbc3e52783&la=en&hash=985078B758BC782BC338DB947347107FBCF8EF6B)
-
-
-## Dependent library
-
-OpenCV  4.4.0  +  OpenCV's extra modules   4.4.0
-
-[@opencv](https://github.com/opencv/opencv)
-
-[@opencv_contrib](https://github.com/opencv/opencv_contrib)
-
-```sh
-cmake -DCMAKE_TOOLCHAIN_FILE=../arm-gnueabi.toolchain.cmake -DOPENCV_EXTRA_MODULES_PATH=<PATH TO opencv_contrib/modules> -DBUILD_LIST=tracking,imgcodecs,videoio,highgui,features2d,ml,xfeatures2d -DCMAKE_BUILD_TYPE=Release ../../..
+```bash
+cd UnitV2Framework
+curl -LO https://developer.arm.com/-/media/Files/downloads/gnu-a/10.2-2020.11/binrel/gcc-arm-10.2-2020.11-x86_64-arm-none-linux-gnueabihf.tar.xz
+tar Jxfv gcc-arm-10.2-2020.11-x86_64-arm-none-linux-gnueabihf.tar.xz
 ```
 
-NCNN
+### OpenCV
 
-[@ncnn](https://github.com/Tencent/ncnn)
+Clone [OpenCV](https://github.com/opencv/opencv) and [OpenCV's extra modules](https://github.com/opencv/opencv_contrib) repositories:
 
-```sh
-cmake -DCMAKE_TOOLCHAIN_FILE=../toolchains/arm-linux-gnueabihf.toolchain.cmake -DCMAKE_BUILD_TYPE=Release -DNCNN_VULKAN=OFF -DNCNN_BUILD_EXAMPLES=ON ..
+```bash
+cd UnitV2Framework
+git clone git@github.com:opencv/opencv.git -b 4.4.0 --depth 1 
+git clone git@github.com:opencv/opencv_contrib.git -b 4.4.0 --depth 1 
 ```
 
-ZBAR
+Cross-compile OpenCV for UnitV2
 
-[@ZBar](https://github.com/ZBar/ZBar)
+```bash
+cd opencv
+mkdir build && cd build
+cmake -DCMAKE_TOOLCHAIN_FILE=../../my-arm-toolchain.cmake -DOPENCV_EXTRA_MODULES_PATH=../../opencv_contrib/modules -DBUILD_LIST=tracking,imgcodecs,videoio,highgui,features2d,ml,xfeatures2d -DCMAKE_BUILD_TYPE=Release ..
+cmake --build .
+make install
+```
 
-```sh
-./configure --prefix=$(pwd)/build --host=arm-none-linux-gnueabihf --enable-shared --without-gtk --without-python --without-qt --without-imagemagick --disable-video CC=arm-none-linux-gnueabihf-gcc CXX=arm-none-linux-gnueabihf-g++
+## Usage
+
+Compile the binary you want with cmake. Here is an example for building ***object_recognition***:
+
+```bash
+cd UnitV2Framework
+mkdir build && cd build
+cmake -DTARGET=object_recognition ..  # replace with the binary you want to compile
+cmake --build .
+```
+
+You can then copy the new binary to the UnitV2 via ssh:
+
+```bash
+scp /path/to/UnitV2Framework/bin/object_recognition root@UNITV2_IP_ADDRESS:/home/m5stack/payload/bin/object_recognition
 ```
