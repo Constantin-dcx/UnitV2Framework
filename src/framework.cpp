@@ -82,8 +82,8 @@ void startFramework(const char* function_name, int w, int h, bool disable_camera
             std::cout << "Cannot open cam" << std::endl;
             return;
         }
-        // capture.set(cv::CAP_PROP_BUFFERSIZE, 1);
-        capture.set(cv::CAP_PROP_FPS, 30);
+        capture.set(cv::CAP_PROP_BUFFERSIZE, 1);
+        capture.set(cv::CAP_PROP_FPS, 1);
         capture.set(cv::CAP_PROP_FOURCC, cv::CAP_OPENCV_MJPEG);
         capture.set(cv::CAP_PROP_FRAME_WIDTH, w);
         capture.set(cv::CAP_PROP_FRAME_HEIGHT, h);
