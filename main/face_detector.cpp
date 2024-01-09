@@ -398,16 +398,19 @@ static void process_faceobjects(const cv::Mat& image, const std::vector<FaceObje
         #endif
         }
 
-        doc["face"][i]["x"] = obj.rect.x * IMAGE_DIV;
-        doc["face"][i]["y"] = obj.rect.y * IMAGE_DIV;
-        doc["face"][i]["w"] = obj.rect.width * IMAGE_DIV;
-        doc["face"][i]["h"] = obj.rect.height * IMAGE_DIV;
+        doc["face"][i]["x"] = std::round(obj.rect.x * IMAGE_DIV);
+        doc["face"][i]["y"] = std::round(obj.rect.y * IMAGE_DIV);
+        doc["face"][i]["w"] = std::round(obj.rect.width * IMAGE_DIV);
+        doc["face"][i]["h"] = std::round(obj.rect.height * IMAGE_DIV);
         doc["face"][i]["prob"] = obj.prob;
-        for(int j = 0; j < 5; j++)
-        {
-            doc["face"][i]["mark"][j]["x"] = (int)obj.landmark[j].x * IMAGE_DIV;
-            doc["face"][i]["mark"][j]["y"] = (int)obj.landmark[j].y * IMAGE_DIV;
-        }
+
+        // Remove useless data
+
+        // for(int j = 0; j < 5; j++)
+        // {
+        //     doc["face"][i]["mark"][j]["x"] = (int)obj.landmark[j].x * IMAGE_DIV;
+        //     doc["face"][i]["mark"][j]["y"] = (int)obj.landmark[j].y * IMAGE_DIV;
+        // }
     }
 
     sendPIPEJsonDoc(doc);
