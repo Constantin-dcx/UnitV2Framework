@@ -17,6 +17,8 @@
 #include "net.h"
 #include "cpu.h"
 
+#define LOCAL_RENDER
+
 #define PROB fprintf(stderr, ">>> prob: %d\n", __LINE__);
 
 static ncnn::UnlockedPoolAllocator g_blob_pool_allocator;
