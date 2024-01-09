@@ -1,6 +1,7 @@
 # set compiler
-set(CMAKE_CXX_COMPILER arm-none-linux-gnueabihf-g++)
-set(CMAKE_C_COMPILER arm-none-linux-gnueabihf-gcc)
+set(ARM_TOOLCHAIN_PATH "${CMAKE_CURRENT_LIST_DIR}/gcc-arm-10.2-2020.11-x86_64-arm-none-linux-gnueabihf")
+set(CMAKE_CXX_COMPILER "${ARM_TOOLCHAIN_PATH}/bin/arm-none-linux-gnueabihf-g++")
+set(CMAKE_C_COMPILER "${ARM_TOOLCHAIN_PATH}/bin/arm-none-linux-gnueabihf-gcc")
 
 if(NOT CMAKE_BUILD_TYPE)
   set(CMAKE_BUILD_TYPE Release)
