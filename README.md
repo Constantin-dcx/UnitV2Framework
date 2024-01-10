@@ -32,6 +32,11 @@ cmake --build .
 make install
 ```
 
+### ncnn and ZBar
+
+The [ncnn](https://github.com/Tencent/ncnn) and [Zbar](https://github.com/ZBar/ZBar) libraries are already compiled in the `lib` folder.
+To compile from source, please see [M5Stack's README](https://github.com/m5stack/UnitV2Framework?tab=readme-ov-file#m5-unitv2-framework).
+
 ## Usage
 
 Compile the binary you want with cmake. Here is an example for building ***object_recognition***:
@@ -48,3 +53,9 @@ You can then copy the new binary to the UnitV2 via ssh:
 ```bash
 scp /path/to/UnitV2Framework/bin/object_recognition root@UNITV2_IP_ADDRESS:/home/m5stack/payload/bin/object_recognition
 ```
+
+The new binary will be used when the UnitV2 server is restarted (press 5s on the button on top).
+
+**Note:** *If you have issues connecting to your UnitV2, follow [M5Stack documentation](https://docs.m5stack.com/en/quick_start/unitv2/config).* 
+
+
