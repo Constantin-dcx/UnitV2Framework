@@ -1,5 +1,7 @@
 # UnitV2Framework
 
+A fork from [M5Stack's UnitV2Framework](https://github.com/m5stack/UnitV2Framework) to compile UnitV2 firmware.
+
 ## Install
 
 ### Toolchain
